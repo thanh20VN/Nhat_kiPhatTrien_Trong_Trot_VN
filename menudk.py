@@ -7,7 +7,7 @@ from menustart import start
 
 def setup(us,up):
     rt = Toplevel(up)
-    rt.title("đăng kí")
+    rt.title("Đăng kí")
     rt.geometry("350x200")
     rt.resizable(False, False)
     icon = PhotoImage(file=r"data\icon.png")
@@ -39,7 +39,7 @@ def setup(us,up):
     ttk.Entry(rt, textvariable=dkpas, width=37, show="*").place(relx=0.52, rely=0.25, anchor="center")
     ttk.Button(rt, text="Đăng kí", command=dk).place(relx=0.5, rely=0.4, anchor="center")
     ttk.Label(rt, text="Tên:").place(relx=0.1, rely=0.1, anchor="center")
-    ttk.Label(rt, text="Mật khuẩn:").place(relx=0.1, rely=0.25, anchor="center")
+    ttk.Label(rt, text="Mật khẩu:").place(relx=0.1, rely=0.25, anchor="center")
 
 def dkdn(us,ab):
     up = Tk()
@@ -69,7 +69,7 @@ def dkdn(us,ab):
     ttk.Entry(up, textvariable=user, width=37).place(relx=0.52, rely=0.1, anchor="center")
     ttk.Entry(up, textvariable=pas, width=37, show="*").place(relx=0.52, rely=0.25, anchor="center")
     ttk.Button(up, text="Đăng nhập", command=lo).place(relx=0.37, rely=0.4, anchor="center")
-    ttk.Button(up, text="đăng kí", command=lambda: setup(us,up)).place(relx=0.6, rely=0.4, anchor="center")
+    ttk.Button(up, text="Đăng kí", command=lambda: setup(us,up)).place(relx=0.6, rely=0.4, anchor="center")
     ttk.Label(up, text="Tên:").place(relx=0.1, rely=0.1, anchor="center")
-    ttk.Label(up, text="Mật khuẩn:").place(relx=0.1, rely=0.25, anchor="center")
+    ttk.Label(up, text="Mật khẩu:").place(relx=0.1, rely=0.25, anchor="center")
     up.mainloop()
