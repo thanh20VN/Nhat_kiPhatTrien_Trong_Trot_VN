@@ -2,6 +2,7 @@ from tools import *
 from tkinter import *
 from tkinter import ttk
 def kt(root,icon,ab,an,listbox,hn):
+    if an==[]:return
     rt= Toplevel(root)
     rt.geometry("450x400")
     rt.resizable(False, False)
