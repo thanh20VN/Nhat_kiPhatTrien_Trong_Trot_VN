@@ -6,6 +6,7 @@ from tools import *
 from listtree import *
 from menukt import *
 from menutt import *
+from menutb import *
 
 class Cay:
     def __init__(self, value):
@@ -13,10 +14,22 @@ class Cay:
 
 cay = Cay(0)
 def start(user,ab):
+    root = Tk()
+    user= StringVar(root,"123")
     with open('data/'+user.get()+'/list.json',"r", encoding='utf-8') as f:an=json.load(f)
     to = datetime.today()
-    hn = str(to.day) + " " + str(to.month) + " " + str(to.year)
-    root = Tk()
+    if len(str(to.day))==1:
+        hn ="0"+ str(to.day) + " " + str(to.month) + " " + str(to.year)
+        hn1 ="0"+ str(to.day) + "/" + str(to.month) + "/" + str(to.year)
+    elif len(str(to.month))==1:
+        hn = str(to.day) + " 0" + str(to.month) + " " + str(to.year)
+        hn1 = str(to.day) + "/0" + str(to.month) + "/" + str(to.year)
+    if len(str(to.day))==1 and len(str(to.month))==1:
+        hn ="0"+ str(to.day) + " 0" + str(to.month) + " " + str(to.year)
+        hn1 ="0"+ str(to.day) + "/0" + str(to.month) + "/" + str(to.year)
+    else:
+        hn = str(to.day) + " " + str(to.month) + " " + str(to.year)
+        hn1 = str(to.day) + "/" + str(to.month) + "/" + str(to.year)
     root.title("Nhật Ký Phát Triển Trồng Trọt")
     root.geometry("450x400")
     root.resizable(False, False)
@@ -44,8 +57,8 @@ def start(user,ab):
     ttk.Label(root, text="Thời gian trồng:", font=("Times New Roman bold", 10)).place(relx=0.12, rely=0.18, anchor="center")
     ttk.Entry(root, textvariable=tg, width=35).place(relx=0.48, rely=0.18, anchor="center")
 
-    listbox = Listbox(root,width=60,height=14)
-    listbox.place(relx=0.5, rely=0.63, anchor="center")
+    listbox = Listbox(root,width=60,height=15)
+    listbox.place(relx=0.5, rely=0.58, anchor="center")
     tm=0
     if not an==[]:
         for i in range(0,len(an)):
@@ -62,14 +75,13 @@ def start(user,ab):
                     listbox.itemconfigure(i, fg="red")
         if tinhngay(hn,an[i]['timeEnd']) <= 5:
             listbox.itemconfigure(i, fg="blue")
-    listbox.select_set(0)
+    3.0, listbox.select_set(0)
     ttk.Button(root, text="Kiểm tra", command=lambda: kt(root,icon,ab,an,listbox,hn)).place(relx=0.5, rely=0.95, anchor="center")
-    ttk.Button(root, text="Lấy ngày hôm nay", command=lambda: tg.set(hn)).place(relx=0.86, rely=0.18, anchor="center")
-    ttk.Button(root, text="Lưu", command=lambda: luu(kq,an,ab,cay,tg,user,tm,listbox)).place(relx=0.65, rely=0.28, anchor="center")
-    ttk.Label(root, text="Thời gian dự kiến:", font=("Times New Roman bold", 10)).place(relx=0.13, rely=0.28, anchor="center")
+    ttk.Button(root, text="Lưu", command=lambda: tb(root,icon,an,tg,user,tm,listbox,kq,hn,ab,cay)).place(relx=0.86, rely=0.18, anchor="center")
     ttk.Button(root,text="Thông tin", command=lambda: tt(root,icon)).place(relx=0.1, rely=0.95, anchor="center")
-    ttk.Label(root, textvariable=kq, font=("Times New Roman bold", 10)).place(relx=0.31, rely=0.28, anchor="center")
-    ttk.Label(root, text=hn, font=("Times New Roman bold", 10)).place(relx=0.9, rely=0.03, anchor="center")
+    ttk.Label(root, text=hn1, font=("Times New Roman bold", 10)).place(relx=0.9, rely=0.03, anchor="center")
     ttk.Label(root, text="Hôm nay là:", font=("Times New Roman bold", 10)).place(relx=0.75, rely=0.03, anchor="center")
-    ttk.Button(root,text="Tìm kiếm", command=l2).place(relx=0.11, rely=0.04, anchor="center")
+    t = Label(root, text="Tìm kiếm", fg="blue", cursor="hand2", font=("Times New Roman", 10, 'underline'))
+    t.place(relx=0.07, rely=0.03, anchor="center")
+    t.bind("<Button-1>", lambda event: l2())
     root.mainloop()
