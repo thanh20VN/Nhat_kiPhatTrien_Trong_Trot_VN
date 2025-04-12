@@ -2,7 +2,7 @@ from tools import *
 from tkinter import *
 from tkinter import ttk
 def kt(root,icon,ab,an,listbox,hn):
-    if an==[]:return
+    if an==[] or listbox.curselection()==():return
     rt= Toplevel(root)
     rt.geometry("450x400")
     rt.resizable(False, False)

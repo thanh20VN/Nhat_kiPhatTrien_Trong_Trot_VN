@@ -17,8 +17,6 @@ if not os.path.exists(duong_dan):
         zip_ref.extractall(".")
     os.remove('data.zip')
 
-
-
 with open("data/user.json", "r") as f:
     us = json.load(f)
 

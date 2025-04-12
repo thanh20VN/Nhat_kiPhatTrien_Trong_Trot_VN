@@ -15,7 +15,6 @@ class Cay:
 cay = Cay(0)
 def start(user,ab):
     root = Tk()
-    user= StringVar(root,"123")
     with open('data/'+user.get()+'/list.json',"r", encoding='utf-8') as f:an=json.load(f)
     to = datetime.today()
     if len(str(to.day))==1:

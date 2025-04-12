@@ -14,26 +14,29 @@ def setup(us,up):
     rt.iconphoto(True, icon)
     dkuser = StringVar()
     dkpas = StringVar()
-
     def dk():
+        co=True
         for i in us:
             if dkuser.get() in i:
                 dkuser.set("")
                 dkpas.set("")
-                ttk.Label(up, text="đã có tên tài khoản như vậy").place(
+                co=False
+        if co:
+            p = hashlib.md5(dkpas.get().encode()).hexdigest()
+            us.append({'user':dkuser.get(),'pass':p},)
+
+            with open("data/user.json", "w") as f:
+                json.dump(us,f,indent=4)
+            folder = Path("data/" + dkuser.get())
+            folder.mkdir(exist_ok=True)
+            with open('data/'+dkuser.get()+'/list.json', 'x') as file:
+                file.write("[\n]")
+            rt.destroy()
+        else:
+            ttk.Label(rt, text="đã có tên tài khoản như vậy").place(
                     relx=0.5, rely=0.55, anchor="center"
                 )
-                return
-        p = hashlib.md5(dkpas.get().encode()).hexdigest()
-        us.append({'user':dkuser.get(),'pass':p},)
-
-        with open("data/user.json", "w") as f:
-            json.dump(us,f,indent=4)
-        folder = Path("data/" + dkuser.get())
-        folder.mkdir(exist_ok=True)
-        with open('data/'+dkuser.get()+'/list.json', 'x') as file:
-            file.write("[\n]")
-        rt.destroy()
+            return
 
     ttk.Entry(rt, textvariable=dkuser, width=37).place(relx=0.52, rely=0.1, anchor="center")
     ttk.Entry(rt, textvariable=dkpas, width=37, show="*").place(relx=0.52, rely=0.25, anchor="center")
